@@ -1,4 +1,4 @@
-# ML Project Example  
+# ML Project Template
 
 A reference implementation of a **well-structured Machine Learning project**.  
 
