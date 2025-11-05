@@ -25,7 +25,11 @@ The data directory structure makes your data processing pipeline visible and und
 04-predictions/: Stores the model outputs, predictions and evaluation results. This creates a clear audit trails of what the model predicts and when. It also enables offline evaluation and comparison between different models or model versions
 
 ### Entry Point Scripts
-The entry point scripts are the publinc interface to the ML system. They should be simple, focused and provide clear command-line interfaces for training models and making predictions. These scripts orchestrate the ML pipelines but don't contain business logic themselves
+The entry point scripts are the publinc interface to the ML system. They should be simple, focused and provide clear command-line interfaces for training models and making predictions. These scripts orchestrate the ML pipelines but don't contain business logic themselves. They are responsible for setting up the runtime environment that your ML pipelines need to execute successfully.
+
+train.py: Should handle the complete model training workflow-data loading, preprocessing, feature engineering, model training, evaluation and artifact saving. It should accept config files as arguments and provide clear feedback about training progress and results
+
+inference.py: Handles prediction workflows. This may include batch prediction on large datasets, real-time inference APIs, or interactive prediction interfaces depending on the intended use.
 
 
 
