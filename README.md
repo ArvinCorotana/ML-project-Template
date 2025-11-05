@@ -57,10 +57,26 @@ Unit tests: Focus on deterministic components of the ML system like data process
 
 Integration tests: Verify that your pipelines work together correctly. These tests might use small sample datasets to verify that training produces valid models and that inference produces sensible predictions. They should test the complete workflow from data loading to prediction output.
 
+### Docker Files
+Docker is a containerisation platform that lets you package apps with all their dependencies into standardised, isolated units called containers. Unlike virtual machines, containsers share the host OS while remaining portable, lightweight and constistent across environments. This makes Docker useful for ML projects where reproduciblility and environment constency are critical.
 
+Dockerfile: Defines the app container with all needed dependencies, system packages and runtime config. Multi-stage builds can seperate development tools from production runtime, keeping production images lean and secure. The Dockerfile should be deterministic, producing identical containers from the same source code regardless of where it is built
 
+docker-compose.yml: Defines multi-service development ebvironments, including databases, message queues, and external APIs the system depends on. This enables developers to spin up complete development envs with a single command, ensuring everyone works with the same architecture. Will do one for the training service, inference service...
 
+### Continuous Integration Workflows
+When the ML prokect grows beyond a single person, testing and development can't rely on manual effort anymore. There were CI come in. A CI workflow auto checks the project whenever code changes are pushed-running tests, linting code, building docker images or even evaluating data pipelines.
 
+The ci/ directory contains config files for CI/CD tools like GitHib Actions, GitLab CI or Jenkins. These Yaml-based files describe jobs that should run automatically like installing dependencies, running unit tests, building artifacts or deploying models to staging environments. Typical jobs you may include in a CI file for ML projects may be code quality (run linting), unit and integration tests, docker builds, artifact versioning and deployment triggers.
+
+A good CI setup makes sure the ML pipeline remains reproducible and stable. It catches errors early, enforces coding standards across the team and makes sure every change is tested in the same way. This is especially critical in ML systems, where experiments can break silently if preprocessing, feature engineering or evaluation logic is altered.
+
+### Environment and Requirement Files
+Env conistency is one of the biggest challenges in ML development. Models that work on one machine may not work on another due to different package versions, hardware configs or OS differences. The solution is rigorous env management through containerisation and dependency specification.
+
+env.yaml and env-dev.yaml define envs for different usage scenarios (conda envs). Normally in development you may need more packages than in production due to different models potentially tried, visualisation....
+
+requirements-prod.txt and requirements-dev.txt serve similar purposes for pip-based envs. Production reqs should be minimal and locked to specific versions. Development reqs can include additional tolls for testing, debugging and analysis. It's crucial to specify the exact version of the libraries that you use. Otherwise, your results will be non-reproducible and you'll have dependencies conflicts across different machines and environments.
 
 ---
 
