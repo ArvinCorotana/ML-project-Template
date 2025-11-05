@@ -1,25 +1,14 @@
 # ML Project Template
 
-A reference implementation of a **well-structured Machine Learning project**.  
+This is a template folder and file structure to be used for ML projects. Code within files is for understanding what sort of code should be written only.
 
-Most ML practitioners start with notebooks and a couple of folders. It works — until the project grows. Then reproducibility breaks, pipelines become messy, and deploying models turns into chaos.  
+##Folders and Files Explained
 
-This repository shows how to organize ML projects **like a professional software system**: modular, reproducible, and production-ready. The structure is based on lessons learned from 10+ industrial-level ML projects.  
+###Configuration Files
+These seperate parameters from the code making it possible to run different settings for different environments, experiments or deployment scenarios. The directoryshould contain environment-specific config files. The files should specify data paths, model architectures, training procedures, evaulation metrics, and deployment settings. This makes the entire ML pipeline configurable without code changes, which is essential for experimentation and A/B testing.
 
----
-
-## Why Project Structure Matters  
-
-Machine learning projects aren’t just about training models. You deal with:  
-
-- Multiple versions of datasets  
-- Experimental code evolving into production workflows  
-- Model artifacts that must be versioned and tracked  
-- Complex pipelines from raw data to predictions  
-
-Without structure, these complexities quickly spiral out of control.  
-
-This repo demonstrates how to design an ML project that is **maintainable, reproducible, and ready for production**.  
+local.yaml: Contains settings optimised for local development, smaller datasets, fewer epochs, simpler models that train quickly
+prod.yaml: Contains production settings, full datasets, optimised hyperparameters, and configs that prioritise accuracy over development speed
 
 ---
 
