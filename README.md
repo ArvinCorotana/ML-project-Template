@@ -5,7 +5,7 @@ This is a template folder and file structure to be used for ML projects. Code wi
 ## Folders and Files Explained
 
 ### Configuration Files
-These seperate parameters from the code making it possible to run different settings for different environments, experiments or deployment scenarios. The directoryshould contain environment-specific config files. The files should specify data paths, model architectures, training procedures, evaulation metrics, and deployment settings. This makes the entire ML pipeline configurable without code changes, which is essential for experimentation and A/B testing.\
+These seperate parameters from the code making it possible to run different settings for different environments, experiments or deployment scenarios. The directoryshould contain environment-specific config files. The files should specify data paths, model architectures, training procedures, evaulation metrics, and deployment settings. This makes the entire ML pipeline configurable without code changes, which is essential for experimentation and A/B testing.
 
 Most ML projects need mutiple config strategies. You may have different configs for different data sources, model types, or business use cases. The key principle is that no parameter is hard coded into the source code and that everything that may need to change like file paths, model parameters, processing options...should be externalised to config files making i more flexible and experiments reproducible.
 
@@ -39,10 +39,16 @@ Notebook management requires discipline. Clear outputs before commiting to versi
 Remeber the notebooks are for documenting the thought process and investigations. When you discover something valuable in a notebook, you need to immediately extract the logic into a proper module with tests and documentation.
 
 ### Source Pipelines
-The src/pipelines/ directory contains the reusable, production-ready ML code organised into logical pipelines. This is where the notebook exploration becomes robust, testable, production code. 
+The src/pipelines/ directory contains the reusable, production-ready ML code organised into logical pipelines. This is where the notebook exploration becomes robust, testable, production code. Each pipeline should be independent testable and should not have hidden dependencies on other components. They should accept standardised inputs and produce standardised outputs making them reusable. This modular design enables parallel development, easier debugging and more flexible deployment.
+
+Pipelines should also implement proper error handing and logging. They should fail fast when given invalid inputs, provide error messages whenthings go wrong and long enough info to debug issues without being too long. They should also implement circuit breaker patterns for external dependencies and graceful degradation when optional components fail.
 
 training_pipeline.py: Orchestrates the complete model training process. Pulls together data loading, preprocessing, feature engineering, model training, evaulation and artifcant persistance. The pipeline should be configurable through config files and should handle errors with comprehensive logging. It should also resume from checkpoints for long-running training jobs
 
+
+inference_pipeline.py: Handles prediction workflows with different requirements that training. Inference needs to be fast, reliable and handle edge cases that may not appear in training data. The pipeline should validate input data, impute missing features and provide confidence estimates along with predictions. I should also support both batch and streaming inference patterns
+
+feature_eng_pipeline.py: Manages feature creation and transformation. This pipeline should be deterministic and reproducible, creating identical features from identicial inputs. It should handle both training-time feature engineering (where you can compute stats from the full dataset) and inference-time feature engineering (where you can only use info available at prediction time)
 
 
 
