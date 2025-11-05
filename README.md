@@ -50,6 +50,16 @@ inference_pipeline.py: Handles prediction workflows with different requirements 
 
 feature_eng_pipeline.py: Manages feature creation and transformation. This pipeline should be deterministic and reproducible, creating identical features from identicial inputs. It should handle both training-time feature engineering (where you can compute stats from the full dataset) and inference-time feature engineering (where you can only use info available at prediction time)
 
+### Tests
+Testing ML code presents unique challenges compared to normal software testing. testing ML systems requires careful though about test data. You need datasets that are large enough to be meaningful but small enough to run quickly in your test suite. You need data that covers important edge cases without including sensitive info. Many teams maintain curated test datasets that are specifically designed for automated testing.
+
+Unit tests: Focus on deterministic components of the ML system like data processing functions, feature engineering logic, evaluation metrics and utility functions. These tests should run quikcly and should not depend on external data or services. They should cover edge cases and error conditions that are difficult to test in end-toend workflows.
+
+Integration tests: Verify that your pipelines work together correctly. These tests might use small sample datasets to verify that training produces valid models and that inference produces sensible predictions. They should test the complete workflow from data loading to prediction output.
+
+
+
+
 
 
 ---
