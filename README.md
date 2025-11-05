@@ -31,7 +31,17 @@ train.py: Should handle the complete model training workflow-data loading, prepr
 
 inference.py: Handles prediction workflows. This may include batch prediction on large datasets, real-time inference APIs, or interactive prediction interfaces depending on the intended use.
 
+### Notebooks
+These serve a specific prupose in the ML workflow of exploration of the dataset, prototyping and communication. They are perfect for understanding the data, trying new approaches and sharing insights with stakeholders. However, they should never contain production logic or be part of the deployment pipeline.
 
+Notebook management requires discipline. Clear outputs before commiting to version control to avoid merge conflicts and repo bloat. Use descriptive names that explain what the notebook investigates. Make sure to add markdown cells that explain the thinking process not just code.
+
+Remeber the notebooks are for documenting the thought process and investigations. When you discover something valuable in a notebook, you need to immediately extract the logic into a proper module with tests and documentation.
+
+### Source Pipelines
+The src/pipelines/ directory contains the reusable, production-ready ML code organised into logical pipelines. This is where the notebook exploration becomes robust, testable, production code. 
+
+training_pipeline.py: Orchestrates the complete model training process. Pulls together data loading, preprocessing, feature engineering, model training, evaulation and artifcant persistance. The pipeline should be configurable through config files and should handle errors with comprehensive logging. It should also resume from checkpoints for long-running training jobs
 
 
 
